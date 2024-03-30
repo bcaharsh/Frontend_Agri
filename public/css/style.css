@@ -1146,7 +1146,7 @@ ul.social_icon li a i:hover {
     line-height: 1.5;
     border-radius: 5px;
     opacity: 0;
-    pointer-events: none;
+    /* pointer-events: none; */
     transform: translateY(50px);
     transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
   }

@@ -19,6 +19,7 @@ import Cart from './Components/Cart';
 import SoilTesting from './Components/SoilTesting';
 import Typesseeds from './Components/Typesseeds';
 import GovermentSchem from './Components/GovermentSchem';
+import SoilLabBooking from './Components/SoilLabBooking';
 
 class App extends Component {
   constructor(props) {
@@ -93,27 +94,6 @@ class App extends Component {
     document.cookie = "postId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     document.cookie = "loggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
   };
-
-  // submithandler = (event) => {
-  //   // event.preventDefault();
-  //    Name = event.target.Name.value;
-  //    Phone_Number = event.target.Phone_Number.value;
-  //    Email = event.target.Email.value;
-  //    Password = event.target.Password.value;
-  //   const data = { Name, Phone_Number, Email, Password };
-
-  //   axios.post('http://127.0.0.1:8000/apipost/', data)
-  //     .then(response => {
-  //       console.log(response);
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-
-  //   // event.target.reset();
-  // };
-
-  
 
 
   render()
@@ -208,12 +188,20 @@ class App extends Component {
             }
 
             {
-              <Route path='/soil' element={<div className='main-layout inner_page about_page'>
-                <MyComponent />
-                <h2 className='m-3'>SOIL TESTING</h2>
-                <SoilTesting/>
-              </div>
-              }/>
+              this.state.login ? ( <Route path='/soil' element={<div className='main-layout inner_page about_page'>
+              <MyComponent />
+              <h2 className='m-3'>SOIL TESTING</h2>
+              <SoilTesting/>
+            </div>
+            }/>):(null)
+            }
+            {
+              this.state.login ?(  <Route path='/labbooking' element={<div className='main-layout inner_page about_page'>
+              <MyComponent />
+              <h2 className='m-3'>SOIL LAB BOOKING</h2>
+              <SoilLabBooking/>
+            </div>
+            }/>):(null)
             }
 
             <Route path='*' element={<div className='main-layout inner_page about_page'>
