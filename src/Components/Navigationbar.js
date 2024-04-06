@@ -137,9 +137,7 @@ class Navigationbar extends Component {
                                        <a className="dropdown-item" href="/crop">Crop Preservation</a>
                                        <a className="dropdown-item" href="/seeds">Types Of Seeds</a>
                                        <a className="dropdown-item" href="/govschem">Goverment Schems</a>
-                                       {
-                                          this.props.login ? (<Link className="dropdown-item" to="/fertilizer">Fertilizer</Link>) : (<Link className="dropdown-item" to="/">Fertilizer</Link>)
-                                       }
+                                       <Link className="dropdown-item" to="/fertilizer">Fertilizer</Link>
                                        {
                                           this.props.login ? (<button type="button" className="btn btn-primary dropdown-item " data-bs-toggle="modal" data-bs-target="#exampleModal12">
                                              Soil Testing
@@ -170,6 +168,8 @@ class Navigationbar extends Component {
                                        handleClose={this.handleCloseLoginModal}
                                        handleShowRegister={this.handleShowRegisterModal}
                                        loginhandler={this.props.loginhandler} // Pass the loginhandler function as a prop
+                                       validation={this.props.validation}
+                                       check={this.props.login}
                                     />
                                     {
                                        this.props.login ? (<Link style={cursor} to='/' onClick={this.props.loginchange}>

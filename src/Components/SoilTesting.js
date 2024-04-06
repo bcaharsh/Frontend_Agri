@@ -5,6 +5,7 @@ export default class SoilTesting extends Component {
         super(props)
 
         this.state = {
+            activeTab: 'form',
             validationph: "",
             validationel: "",
             validationorg: "",
@@ -342,44 +343,46 @@ export default class SoilTesting extends Component {
         return val
     }
 
-    render() {
+    
+    renderFormTab = () => {
         return (
-            <>
-                <div className='container border border-3 p-4'>
+            <div>
+                {/* Your form JSX */}
+                <div className='container p-4'>
                     <form action="" className='row' onSubmit={this.handleform} id="form-container">
                         <div className='' >
-                            <table className='table'>
+                            <table className='table table-borderless'>
                                 <tbody>
                                     <tr>
                                         <td>Laboratory Number</td>
                                         <td>Date</td>
                                     </tr>
                                     <tr>
-                                        <td><input type="text" name="Laboratory_Number" className='form-control' /></td>
-                                        <td><input type="date" className='form-control' /></td>
+                                        <td><input type="text" name="Laboratory_Number" className='form-control border border-dark' /></td>
+                                        <td><input type="date" className='form-control border border-dark' /></td>
                                     </tr>
                                     <tr>
                                         <td>Farmer Name</td>
                                         <td>Village</td>
                                     </tr>
                                     <tr>
-                                        <td><input type="text" name="Farmer_Name" id="" className="form-control" /></td>
-                                        <td><input type="text" name="Village" id="" className="form-control" /></td>
+                                        <td><input type="text" name="Farmer_Name" id="" className="form-control border border-dark" /></td>
+                                        <td><input type="text" name="Village" id="" className="form-control border border-dark" /></td>
                                     </tr>
                                     <tr>
                                         <td>Survey Number</td>
                                         <td>Taluka/District</td>
                                     </tr>
                                     <tr>
-                                        <td><input type="text" name="Survey_Number" id="" className="form-control" /></td>
-                                        <td><input type="text" name="Taluka_District" id="" className="form-control" /></td>
+                                        <td><input type="text" name="Survey_Number" id="" className="form-control border border-dark" /></td>
+                                        <td><input type="text" name="Taluka_District" id="" className="form-control border border-dark" /></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         <h3 className='m-3'>Land verification Report</h3>
                         <div className=' m-2'>
-                            <table className="table">
+                            <table className="table table-borderless">
                                 <thead>
                                     <tr>
                                         <th scope="col"><label htmlFor="">Test</label></th>
@@ -389,29 +392,29 @@ export default class SoilTesting extends Component {
                                 <tbody>
                                     <tr>
                                         <th scope='row'>P.H Number</th>
-                                        <td><input type="number" step="0.01" name="P_H_Number_Proporstion" id="" className="form-control" />{this.state.validationph}</td>
+                                        <td><input type="number" step="0.01" name="P_H_Number_Proporstion" id="" className="form-control border border-dark" required/>{this.state.validationph}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Electrical Conductivity</th>
-                                        <td><input type="number" step="0.01" name="Electrical_Conductivity_Proporstion" id="" className="form-control" />{this.state.validationel}</td>
+                                        <td><input type="number" step="0.01" name="Electrical_Conductivity_Proporstion" id="" className="form-control border border-dark" required/>{this.state.validationel}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Organic carbon</th>
-                                        <td><input type="number" step="0.01" name="Organic_carbon_Proporstion" id="" className="form-control" />{this.state.validationorg}</td>
+                                        <td><input type="number" step="0.01" name="Organic_carbon_Proporstion" id="" className="form-control border border-dark" required/>{this.state.validationorg}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Avalaible PhosPhorus</th>
-                                        <td><input type="number" step="0.01" name="Avalaible_PhosPhorus_Proporstion" id="" className="form-control" />{this.state.validationpho}</td>
+                                        <td><input type="number" step="0.01" name="Avalaible_PhosPhorus_Proporstion" id="" className="form-control border border-dark"required/>{this.state.validationpho}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Avalaible Potas</th>
-                                        <td><input type="number" step="0.01" name="Avalaible_Potas_Proporstion" id="" className="form-control" />{this.state.validationpotas}</td>
+                                        <td><input type="number" step="0.01" name="Avalaible_Potas_Proporstion" id="" className="form-control border border-dark"required />{this.state.validationpotas}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         <div className=' m-2'>
-                            <table className="table">
+                            <table className="table table-borderless">
                                 <thead>
                                     <tr>
                                         <th scope='col'>Micro Element</th>
@@ -421,34 +424,34 @@ export default class SoilTesting extends Component {
                                 <tbody>
                                     <tr>
                                         <th scope='row'><label htmlFor="">Iron(Fe)</label></th>
-                                        <td><input type="number" step="0.01" name="Fe_Analysis" id="" className="form-control" /></td>
+                                        <td><input type="number" step="0.01" name="Fe_Analysis" id="" className="form-control border border-dark" required /></td>
                                     </tr>
                                     <tr>
                                         <th scope='row'><label htmlFor="">Zinc</label></th>
-                                        <td><input type="number" step="0.01" name="Zinc_Analysis" id="" className="form-control" /></td>
+                                        <td><input type="number" step="0.01" name="Zinc_Analysis" id="" className="form-control border border-dark" required /></td>
                                     </tr>
                                     <tr>
                                         <th scope='row'><label htmlFor="">Cooper</label></th>
-                                        <td><input type="number" step="0.01" name="Cooper_Analysis" id="" className="form-control" /></td>
+                                        <td><input type="number" step="0.01" name="Cooper_Analysis" id="" className="form-control border border-dark" required /></td>
                                     </tr>
                                     <tr>
                                         <th scope='row'><label htmlFor="">Magananese</label></th>
-                                        <td><input type="number" step="0.01" name="Magananese_Analysis" id="" className="form-control" /></td>
+                                        <td><input type="number" step="0.01" name="Magananese_Analysis" id="" className="form-control border border-dark" required /></td>
                                     </tr>
                                     <tr>
                                         <th scope='row'><label htmlFor="">Brimstone</label></th>
-                                        <td><input type="number" step="0.01" name="Brimstone_Analysis" id="" className="form-control" /></td>
+                                        <td><input type="number" step="0.01" name="Brimstone_Analysis" id="" className="form-control border border-dark" required /></td>
                                     </tr>
                                     <tr>
                                         <th scope='row'><label htmlFor="">Boron</label></th>
-                                        <td><input type="number" step="0.01" name="Boron_Analysis" id="" className="form-control" /></td>
+                                        <td><input type="number" step="0.01" name="Boron_Analysis" id="" className="form-control border border-dark" required /></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         <div className="m-2">
                             <h3>SELECT CROP FOR  ANALYSIS:</h3>
-                            <table className="table">
+                            <table className="table table-borderless">
                                 <thead>
                                     <tr>
                                         <th>Crops</th>
@@ -493,13 +496,22 @@ export default class SoilTesting extends Component {
                             </table>
                         </div>
                         <div>
-                            <button type="submit" className="btn btn-primary m-4 ">Submit Form</button>
+                            <button type="submit" onClick={() => this.setState({ activeTab: 'report' })} className="btn btn-primary m-4 ">Submit Form</button>
                         </div>
                     </form>
-
                 </div>
+            </div>
+        );
+    };
+
+    renderReportTab = () => {
+        return (
+            <div>
+                {/* Your report JSX */}
                 <div className=' container  p-4'>
-                    <table className="table">
+                <h3 className='m-3'>Land verification Report</h3>
+                <hr />
+                    <table className="table table-borderless">
                         <thead>
                             <tr>
                                 <th scope="col"><label htmlFor="">Test</label></th>
@@ -535,7 +547,8 @@ export default class SoilTesting extends Component {
                             </tr>
                         </tbody>
                     </table>
-                    <table className="table">
+                    <hr />
+                    <table className="table table-borderless">
                         <thead>
                             <tr>
                                 <th scope='col'>Micro Element</th>
@@ -576,9 +589,11 @@ export default class SoilTesting extends Component {
                             </tr>
                         </tbody>
                     </table>
+                    <hr />
                     <h3 className='m-3'>Recommendation for land reform</h3>
+                    <hr />
                     <div className=' m-2'>
-                        <table className="table">
+                        <table className="table table-borderless">
                             <tbody>
                                 <tr>
                                     <th scope='row'><label htmlFor="">Lime(tons/hector) Mix with soil</label></th>
@@ -591,9 +606,9 @@ export default class SoilTesting extends Component {
                             </tbody>
                         </table>
                     </div>
-
+                    <hr />
                     <div className='mt-4'>
-                        <table className="table">
+                        <table className="table table-borderless">
                             <thead>
                                 <tr>
                                     <th>Crop Name</th>
@@ -627,6 +642,32 @@ export default class SoilTesting extends Component {
                         </table>
                     </div>
                 </div>
+                <hr />
+                <button className='btn btn-primary' onClick={() => this.setState({ activeTab: 'form' })}>Go Back to Form</button>
+            </div>
+        );
+    };
+    render() {
+        return (
+            <>
+                <div className='container border border-2 p-4'>
+                <ul className="nav nav-tabs">
+                    <li className="nav-item">
+                        <button className={`nav-link ${this.state.activeTab === 'form' ? 'active' : ''}`} onClick={() => this.setState({ activeTab: 'form' })}>Form</button>
+                    </li>
+                    <li className="nav-item">
+                        <button className={`nav-link ${this.state.activeTab === 'report' ? 'active' : ''}`} onClick={() => this.setState({ activeTab: 'report' })}>Report</button>
+                    </li>
+                </ul>
+                <div className="tab-content">
+                    <div className={`tab-pane ${this.state.activeTab === 'form' ? 'active' : ''}`}>
+                        {this.renderFormTab()}
+                    </div>
+                    <div className={`tab-pane ${this.state.activeTab === 'report' ? 'active' : ''}`}>
+                        {this.renderReportTab()}
+                    </div>
+                </div>
+            </div>
             </>
         )
     }

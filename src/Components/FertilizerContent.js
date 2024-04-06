@@ -18,32 +18,32 @@ class FertilizerContent extends Component {
                 postId = value; // Set postId if found
             }
         });
-    
+
         // Get the existing cart items from local storage
         let existingItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    
+
         // Check if the item is already in the cart
-        const isItemInCart = existingItems.some(cartItem => 
-            cartItem.Product_name === item.Product_name && 
+        const isItemInCart = existingItems.some(cartItem =>
+            cartItem.Product_name === item.Product_name &&
             cartItem.postId === postId
         );
-    
+
         if (isItemInCart) {
             // Show an alert if the item is already in the cart
             alert('Item is already added to the cart!');
         } else {
             // Add the postId to the item
             item.postId = postId;
-    
+
             // Add the new item to the existing items array
             existingItems.push(item);
-    
+
             // Update the local storage with the new items array
             localStorage.setItem('cartItems', JSON.stringify(existingItems));
         }
     }
-    
-    
+
+
 
     render() {
         const { product } = this.props;
@@ -63,7 +63,9 @@ class FertilizerContent extends Component {
                                     <h4 className='text-left'>Price: {item.Price} <i className="fa fa-inr"></i></h4>
                                     <p className="card-text text-right">
                                         {/* Call addToCart function with the current item */}
-                                        <Link to='/cart' onClick={() => this.addToCart(item)} className='btn btn-primary'>Add to cart</Link>
+                                        {
+                                            !this.props.check ?  (null):(<Link to='/cart' onClick={() => this.addToCart(item)} className='btn btn-primary'>Add to cart</Link>)
+                                        }
                                     </p>
                                 </div>
                             </div>

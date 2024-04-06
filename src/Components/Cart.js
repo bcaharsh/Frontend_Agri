@@ -6,7 +6,7 @@ function Cart() {
   const [product, setProduct] = useState([]); // Store products fetched from local storage
   const [prices, setPrices] = useState({}); // Store total prices for each product
   const [totalPrice, setTotalPrice] = useState(''); // Store the total price
-
+  const [payment, setpayment] = useState(false); // Store order id after successful payment
   const [Razorpay] = useRazorpay();
 
   useEffect(() => {
@@ -63,7 +63,7 @@ function Cart() {
     window.location.reload();
 }
 
-  const Complete_payment=(payment_id,order_id,signature,amount)=>{
+  const Complete_payment=(payment_id,order_id,signature,amount,item)=>{
     axios.post('http://127.0.0.1:8000/order/complete/', {
       "payment_id":payment_id,
       "order_id":order_id,
@@ -72,6 +72,7 @@ function Cart() {
     })
     .then(response => {
       console.log(response);
+      deleteitem(item);
     })
     .catch(error => {
       console.log("Error", error);
@@ -88,7 +89,6 @@ function Cart() {
       console.log(response.data);
       console.log(response.data.data.id);
       const orderid = response.data.data.id;
-
       const options = {
         key: "rzp_test_2PQwJ271XWxRs2", // Enter the Key ID generated from the Dashboard
         name: "NFGA",
@@ -103,7 +103,8 @@ function Cart() {
             response.razorpay_payment_id,
             response.razorpay_order_id,
             response.razorpay_signature,
-            prices[item.id]
+            prices[item.id],
+            item
           )
         },
         prefill: {
@@ -120,7 +121,6 @@ function Cart() {
       };
 
       const rzp1 = new window.Razorpay(options);
-
       rzp1.on("payment.failed", function (response) {
         alert(response.error.code);
         alert(response.error.description);
@@ -130,14 +130,11 @@ function Cart() {
         alert(response.error.metadata.order_id);
         alert(response.error.metadata.payment_id);
       });
-
       rzp1.open();
     })
     .catch(error => {
       console.log(error);
     });
-    // console.log(prices[item.id]);
-    
   }
 
   const options = [];
