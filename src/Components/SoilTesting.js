@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 export default class SoilTesting extends Component {
     constructor(props) {
@@ -41,11 +43,14 @@ export default class SoilTesting extends Component {
             Lime_Quality: "---",
             Gypsum_Quality: "---",
             Potato: false,
-            option2: false,
+            Aubergine: false,
             option3: false,
-            Potato_Nitrogen:"",
-            Potato_PhosPhorus:"",
-            Potato_Potas:"",
+            Potato_Nitrogen: "",
+            Potato_PhosPhorus: "",
+            Potato_Potas: "",
+            Aubergine_Nitrogen: "",
+            Aubergine_PhosPhorus: "",
+            Aubergine_Potas: ""
         }
     }
 
@@ -167,29 +172,61 @@ export default class SoilTesting extends Component {
         // --------------------------this is Organic_carbon_Proporstion code ------------------------------------------------------------
         if (Organic_carbon_Proporstion >= 0.00 && Organic_carbon_Proporstion <= 0.50) {
             this.setState({ Organic_carbon_Quality: "Low" })
-            if(Organic_carbon_Proporstion>=0.00 && Organic_carbon_Proporstion<=0.25){
-                this.setState({ Potato_Nitrogen: "270" })
+            if (this.state.Potato) {
+                if (Organic_carbon_Proporstion >= 0.00 && Organic_carbon_Proporstion <= 0.25) {
+                    this.setState({ Potato_Nitrogen: "270" })
+                }
+                else if (Organic_carbon_Proporstion >= 0.26 && Organic_carbon_Proporstion <= 0.40) {
+                    this.setState({ Potato_Nitrogen: "250" })
+                }
+                else if (Organic_carbon_Proporstion >= 0.41 && Organic_carbon_Proporstion <= 0.50) {
+                    this.setState({ Potato_Nitrogen: "240" })
+                }
             }
-            else if(Organic_carbon_Proporstion>=0.26 && Organic_carbon_Proporstion<=0.40){
-                this.setState({ Potato_Nitrogen: "250" })
-            }
-            else if(Organic_carbon_Proporstion>=0.41 && Organic_carbon_Proporstion<=0.50){
-                this.setState({ Potato_Nitrogen: "240" })
+            if (this.state.Aubergine) {
+                if (Organic_carbon_Proporstion >= 0.00 && Organic_carbon_Proporstion <= 0.25) {
+                    this.setState({ Aubergine_Nitrogen: "120" })
+                }
+                else if (Organic_carbon_Proporstion >= 0.26 && Organic_carbon_Proporstion <= 0.40) {
+                    this.setState({ Aubergine_Nitrogen: "120" })
+                }
+                else if (Organic_carbon_Proporstion >= 0.41 && Organic_carbon_Proporstion <= 0.50) {
+                    this.setState({ Aubergine_Nitrogen: "110" })
+                }
             }
         }
         else if (Organic_carbon_Proporstion >= 0.51 && Organic_carbon_Proporstion <= 0.75) {
-            this.setState({ Organic_carbon_Quality: "Medium",Potato_Nitrogen: "220" })
+            this.setState({ Organic_carbon_Quality: "Medium" })
+            if (this.state.Potato) {
+                this.setState({ Potato_Nitrogen: "220" })
+            }
+            else if (this.state.Aubergine) {
+                this.setState({ Aubergine_Nitrogen: "100" })
+            }
         }
         else if (Organic_carbon_Proporstion >= 0.76) {
             this.setState({ Organic_carbon_Quality: "High" })
-            if(Organic_carbon_Proporstion>=0.76 && Organic_carbon_Proporstion<=1.00){
-                this.setState({ Potato_Nitrogen: "170" })
+            if (this.state.Potato) {
+                if (Organic_carbon_Proporstion >= 0.76 && Organic_carbon_Proporstion <= 1.00) {
+                    this.setState({ Potato_Nitrogen: "170" })
+                }
+                else if (Organic_carbon_Proporstion >= 1.01 && Organic_carbon_Proporstion <= 1.25) {
+                    this.setState({ Potato_Nitrogen: "110" })
+                }
+                else if (Organic_carbon_Proporstion >= 1.15) {
+                    this.setState({ Potato_Nitrogen: "55" })
+                }
             }
-            else if(Organic_carbon_Proporstion>=1.01 && Organic_carbon_Proporstion<=1.25){
-                this.setState({ Potato_Nitrogen: "110" })
-            }
-            else if(Organic_carbon_Proporstion>=1.15){
-                this.setState({ Potato_Nitrogen: "55" })
+            if (this.state.Aubergine) {
+                if (Organic_carbon_Proporstion >= 0.76 && Organic_carbon_Proporstion <= 1.00) {
+                    this.setState({ Aubergine_Nitrogen: "75" })
+                }
+                else if (Organic_carbon_Proporstion >= 1.01 && Organic_carbon_Proporstion <= 1.25) {
+                    this.setState({ Aubergine_Nitrogen: "50" })
+                }
+                else if (Organic_carbon_Proporstion >= 1.15) {
+                    this.setState({ Aubergine_Nitrogen: "25" })
+                }
             }
         }
         else {
@@ -198,23 +235,49 @@ export default class SoilTesting extends Component {
         // -------------------------this is Avalaible_PhosPhorus_Proporstion code ---------------------------------------------------------
         if (Avalaible_PhosPhorus_Proporstion >= 0.00 && Avalaible_PhosPhorus_Proporstion <= 25.00) {
             this.setState({ Avalaible_PhosPhorus_Quality: "Low" })
-            if(Avalaible_PhosPhorus_Proporstion>=0.00 && Avalaible_PhosPhorus_Proporstion<=10.00){               
-                this.setState({ Potato_PhosPhorus: "140" })
+            if (this.state.Potato) {
+                if (Avalaible_PhosPhorus_Proporstion >= 0.00 && Avalaible_PhosPhorus_Proporstion <= 10.00) {
+                    this.setState({ Potato_PhosPhorus: "140" })
+                }
+                else if (Avalaible_PhosPhorus_Proporstion >= 11.00 && Avalaible_PhosPhorus_Proporstion <= 25.00) {
+                    this.setState({ Potato_PhosPhorus: "120" })
+                }
             }
-            else if(Avalaible_PhosPhorus_Proporstion>=11.00 && Avalaible_PhosPhorus_Proporstion<=25.00){
-                this.setState({ Potato_PhosPhorus: "120" })
+            if (this.state.Aubergine) {
+                if (Avalaible_PhosPhorus_Proporstion >= 0.00 && Avalaible_PhosPhorus_Proporstion <= 10.00) {
+                    this.setState({ Aubergine_PhosPhorus: "65" })
+                }
+                else if (Avalaible_PhosPhorus_Proporstion >= 11.00 && Avalaible_PhosPhorus_Proporstion <= 25.00) {
+                    this.setState({ Aubergine_PhosPhorus: "55" })
+                }
             }
         }
         else if (Avalaible_PhosPhorus_Proporstion >= 26.00 && Avalaible_PhosPhorus_Proporstion <= 60.00) {
-            this.setState({ Avalaible_PhosPhorus_Quality: "Medium",Potato_PhosPhorus:"110" })
+            this.setState({ Avalaible_PhosPhorus_Quality: "Medium" })
+            if (this.state.Potato) {
+                this.setState({ Potato_PhosPhorus: "110" })
+            }
+            else if (this.state.Aubergine) {
+                this.setState({ Aubergine_PhosPhorus: "50" })
+            }
         }
         else if (Avalaible_PhosPhorus_Proporstion >= 61.00) {
             this.setState({ Avalaible_PhosPhorus_Quality: "High" })
-            if(Avalaible_PhosPhorus_Proporstion>=61.00 && Avalaible_PhosPhorus_Proporstion<=100.00){               
-                this.setState({ Potato_PhosPhorus: "75" })
+            if (this.state.Potato) {
+                if (Avalaible_PhosPhorus_Proporstion >= 61.00 && Avalaible_PhosPhorus_Proporstion <= 100.00) {
+                    this.setState({ Potato_PhosPhorus: "75" })
+                }
+                else if (Avalaible_PhosPhorus_Proporstion >= 100.00) {
+                    this.setState({ Potato_PhosPhorus: "55" })
+                }
             }
-            else if(Avalaible_PhosPhorus_Proporstion>=100.00){
-                this.setState({ Potato_PhosPhorus: "55" })
+            if (this.state.Aubergine) {
+                if (Avalaible_PhosPhorus_Proporstion >= 61.00 && Avalaible_PhosPhorus_Proporstion <= 100.00) {
+                    this.setState({ Aubergine_PhosPhorus: "35" })
+                }
+                else if (Avalaible_PhosPhorus_Proporstion >= 100.00) {
+                    this.setState({ Aubergine_PhosPhorus: "25" })
+                }
             }
         }
         else {
@@ -223,23 +286,49 @@ export default class SoilTesting extends Component {
         // ---------------------------this is Avalaible_Potas_Proporstion code -------------------------------------------
         if (Avalaible_Potas_Proporstion >= 0.00 && Avalaible_Potas_Proporstion <= 150.00) {
             this.setState({ Avalaible_Potas_Quality: "Low" })
-            if(Avalaible_Potas_Proporstion>=0.00 && Avalaible_Potas_Proporstion<=75.00){               
-                this.setState({ Potato_Potas: "260" })
+            if (this.state.Potato) {
+                if (Avalaible_Potas_Proporstion >= 0.00 && Avalaible_Potas_Proporstion <= 75.00) {
+                    this.setState({ Potato_Potas: "260" })
+                }
+                else if (Avalaible_Potas_Proporstion >= 76.00 && Avalaible_Potas_Proporstion <= 150.00) {
+                    this.setState({ Potato_Potas: "220" })
+                }
             }
-            else if(Avalaible_Potas_Proporstion>=76.00 && Avalaible_Potas_Proporstion<=150.00){
-                this.setState({ Potato_Potas: "220" })
+            if (this.state.Aubergine) {
+                if (Avalaible_Potas_Proporstion >= 0.00 && Avalaible_Potas_Proporstion <= 75.00) {
+                    this.setState({ Aubergine_Potas: "65" })
+                }
+                else if (Avalaible_Potas_Proporstion >= 76.00 && Avalaible_Potas_Proporstion <= 150.00) {
+                    this.setState({ Aubergine_Potas: "55" })
+                }
             }
         }
         else if (Avalaible_Potas_Proporstion >= 151.00 && Avalaible_Potas_Proporstion <= 300.00) {
-            this.setState({ Avalaible_Potas_Quality: "Medium",Potato_Potas:"220" })
+            this.setState({ Avalaible_Potas_Quality: "Medium" })
+            if (this.state.Potato) {
+                this.setState({ Potato_Potas: "220" })
+            }
+            else if (this.state.Aubergine) {
+                this.setState({ Aubergine_Potas: "50" })
+            }
         }
         else if (Avalaible_Potas_Proporstion >= 301.00) {
             this.setState({ Avalaible_Potas_Quality: "High" })
-            if(Avalaible_Potas_Proporstion>=301 && Avalaible_Potas_Proporstion<450){               
-                this.setState({ Potato_Potas: "150" })
+            if (this.state.Potato) {
+                if (Avalaible_Potas_Proporstion >= 301 && Avalaible_Potas_Proporstion < 450) {
+                    this.setState({ Potato_Potas: "150" })
+                }
+                else if (Avalaible_Potas_Proporstion >= 450) {
+                    this.setState({ Potato_Potas: "100" })
+                }
             }
-            else if(Avalaible_Potas_Proporstion>=450){
-                this.setState({ Potato_Potas: "100" })
+            if (this.state.Aubergine) {
+                if (Avalaible_Potas_Proporstion >= 301 && Avalaible_Potas_Proporstion < 450) {
+                    this.setState({ Aubergine_Potas: "35" })
+                }
+                else if (Avalaible_Potas_Proporstion >= 450) {
+                    this.setState({ Aubergine_Potas: "25" })
+                }
             }
         }
         else {
@@ -326,24 +415,39 @@ export default class SoilTesting extends Component {
 
     }
 
-    potatourea=()=>{
-        const val=Math.floor(this.state.Potato_PhosPhorus*100/32)
-        const a=val*12/100
-        const b=this.state.Potato_Nitrogen-a
-        return Math.floor(b*100/46)
+    potatourea = () => {
+        const val = Math.floor(this.state.Potato_PhosPhorus * 100 / 32)
+        const a = val * 12 / 100
+        const b = this.state.Potato_Nitrogen - a
+        return Math.floor(b * 100 / 46)
     }
-    potasnpk=()=>{
-        const val=Math.floor(this.state.Potato_PhosPhorus*100/32)
-        const a=val*16/100
-        const b=this.state.Potato_Potas-a
-        return Math.floor(b*100/60)
+    potasnpk = () => {
+        const val = Math.floor(this.state.Potato_PhosPhorus * 100 / 32)
+        const a = val * 16 / 100
+        const b = this.state.Potato_Potas - a
+        return Math.floor(b * 100 / 60)
     }
-    potato_npk=()=>{
-        const val=Math.floor(this.state.Potato_PhosPhorus*100/32) 
+    potato_npk = () => {
+        const val = Math.floor(this.state.Potato_PhosPhorus * 100 / 32)
         return val
     }
+    Aubergine_npk = () => {
+        const val = Math.floor(this.state.Aubergine_PhosPhorus * 100 / 32)
+        return val
+    }
+    Auberginenpk = () => {
+        const val = Math.floor(this.state.Aubergine_PhosPhorus * 100 / 32)
+        const a = Math.floor(val * 16 / 100)
+        const b = this.state.Aubergine_Potas - a
+        return Math.floor(b * 100 / 60)
+    }
+    Aubergineurea = () => {
+        const val = Math.floor(this.state.Aubergine_PhosPhorus * 100 / 32)
+        const a = Math.floor(val * 12 / 100)
+        const b = this.state.Aubergine_Nitrogen - a
+        return Math.floor(b * 100 / 46)
+    }
 
-    
     renderFormTab = () => {
         return (
             <div>
@@ -392,23 +496,23 @@ export default class SoilTesting extends Component {
                                 <tbody>
                                     <tr>
                                         <th scope='row'>P.H Number</th>
-                                        <td><input type="number" step="0.01" name="P_H_Number_Proporstion" id="" className="form-control border border-dark" required/>{this.state.validationph}</td>
+                                        <td><input type="number" step="0.01" name="P_H_Number_Proporstion" id="" className="form-control border border-dark" required />{this.state.validationph}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Electrical Conductivity</th>
-                                        <td><input type="number" step="0.01" name="Electrical_Conductivity_Proporstion" id="" className="form-control border border-dark" required/>{this.state.validationel}</td>
+                                        <td><input type="number" step="0.01" name="Electrical_Conductivity_Proporstion" id="" className="form-control border border-dark" required />{this.state.validationel}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Organic carbon</th>
-                                        <td><input type="number" step="0.01" name="Organic_carbon_Proporstion" id="" className="form-control border border-dark" required/>{this.state.validationorg}</td>
+                                        <td><input type="number" step="0.01" name="Organic_carbon_Proporstion" id="" className="form-control border border-dark" required />{this.state.validationorg}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Avalaible PhosPhorus</th>
-                                        <td><input type="number" step="0.01" name="Avalaible_PhosPhorus_Proporstion" id="" className="form-control border border-dark"required/>{this.state.validationpho}</td>
+                                        <td><input type="number" step="0.01" name="Avalaible_PhosPhorus_Proporstion" id="" className="form-control border border-dark" required />{this.state.validationpho}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Avalaible Potas</th>
-                                        <td><input type="number" step="0.01" name="Avalaible_Potas_Proporstion" id="" className="form-control border border-dark"required />{this.state.validationpotas}</td>
+                                        <td><input type="number" step="0.01" name="Avalaible_Potas_Proporstion" id="" className="form-control border border-dark" required />{this.state.validationpotas}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -471,17 +575,17 @@ export default class SoilTesting extends Component {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Option 2</td>
+                                        <td>Aubergine</td>
                                         <td>
                                             <input
                                                 type="checkbox"
-                                                name="option2"
-                                                checked={this.state.option2}
+                                                name="Aubergine"
+                                                checked={this.state.Aubergine}
                                                 onChange={this.handleCheckboxChange}
                                             />
                                         </td>
                                     </tr>
-                                    <tr>
+                                    {/* <tr>
                                         <td>Option 3</td>
                                         <td>
                                             <input
@@ -491,7 +595,7 @@ export default class SoilTesting extends Component {
                                                 onChange={this.handleCheckboxChange}
                                             />
                                         </td>
-                                    </tr>
+                                    </tr> */}
                                 </tbody>
                             </table>
                         </div>
@@ -508,9 +612,9 @@ export default class SoilTesting extends Component {
         return (
             <div>
                 {/* Your report JSX */}
-                <div className=' container  p-4'>
-                <h3 className='m-3'>Land verification Report</h3>
-                <hr />
+                <div id="form-container" className=' container  p-4'>
+                    <h3 className='m-3'>Land verification Report</h3>
+                    <hr />
                     <table className="table table-borderless">
                         <thead>
                             <tr>
@@ -624,19 +728,33 @@ export default class SoilTesting extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {!this.state.Potato ? "":(
+                                {!this.state.Potato ? "" : (
                                     <tr>
-                                    <td>Potato</td>
-                                    <td>{this.state.Potato_Nitrogen}</td>
-                                    <td>{this.state.Potato_PhosPhorus}</td>
-                                    <td>{this.state.Potato_Potas}</td>
-                                    <td>{this.potato_npk()}</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>{this.potatourea()}</td>
-                                    <td>{this.potasnpk()}</td>
-                                    <td>12.5</td>
-                                </tr>
+                                        <td>Potato</td>
+                                        <td>{this.state.Potato_Nitrogen}</td>
+                                        <td>{this.state.Potato_PhosPhorus}</td>
+                                        <td>{this.state.Potato_Potas}</td>
+                                        <td>{this.potato_npk()}</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>{this.potatourea()}</td>
+                                        <td>{this.potasnpk()}</td>
+                                        <td>12.5</td>
+                                    </tr>
+                                )}
+                                {!this.state.Aubergine ? "" : (
+                                    <tr>
+                                        <td>Aubergine</td>
+                                        <td>{this.state.Aubergine_Nitrogen}</td>
+                                        <td>{this.state.Aubergine_PhosPhorus}</td>
+                                        <td>{this.state.Aubergine_Potas}</td>
+                                        <td>{this.Aubergine_npk()}</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>{this.Aubergineurea()}</td>
+                                        <td>{this.Auberginenpk()}</td>
+                                        <td>3.75</td>
+                                    </tr>
                                 )}
                             </tbody>
                         </table>
@@ -644,6 +762,7 @@ export default class SoilTesting extends Component {
                 </div>
                 <hr />
                 <button className='btn btn-primary' onClick={() => this.setState({ activeTab: 'form' })}>Go Back to Form</button>
+
             </div>
         );
     };
@@ -651,23 +770,23 @@ export default class SoilTesting extends Component {
         return (
             <>
                 <div className='container border border-2 p-4'>
-                <ul className="nav nav-tabs">
-                    <li className="nav-item">
-                        <button className={`nav-link ${this.state.activeTab === 'form' ? 'active' : ''}`} onClick={() => this.setState({ activeTab: 'form' })}>Form</button>
-                    </li>
-                    <li className="nav-item">
-                        <button className={`nav-link ${this.state.activeTab === 'report' ? 'active' : ''}`} onClick={() => this.setState({ activeTab: 'report' })}>Report</button>
-                    </li>
-                </ul>
-                <div className="tab-content">
-                    <div className={`tab-pane ${this.state.activeTab === 'form' ? 'active' : ''}`}>
-                        {this.renderFormTab()}
-                    </div>
-                    <div className={`tab-pane ${this.state.activeTab === 'report' ? 'active' : ''}`}>
-                        {this.renderReportTab()}
+                    <ul className="nav nav-tabs">
+                        <li className="nav-item">
+                            <button className={`nav-link ${this.state.activeTab === 'form' ? 'active' : ''}`} onClick={() => this.setState({ activeTab: 'form' })}>Form</button>
+                        </li>
+                        <li className="nav-item">
+                            <button className={`nav-link ${this.state.activeTab === 'report' ? 'active' : ''}`} onClick={() => this.setState({ activeTab: 'report' })}>Report</button>
+                        </li>
+                    </ul>
+                    <div className="tab-content">
+                        <div className={`tab-pane ${this.state.activeTab === 'form' ? 'active' : ''}`}>
+                            {this.renderFormTab()}
+                        </div>
+                        <div className={`tab-pane ${this.state.activeTab === 'report' ? 'active' : ''}`}>
+                            {this.renderReportTab()}
+                        </div>
                     </div>
                 </div>
-            </div>
             </>
         )
     }
