@@ -575,7 +575,7 @@ export default class SoilTesting extends Component {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Aubergine</td>
+                                        <td>Brinjal</td>
                                         <td>
                                             <input
                                                 type="checkbox"
@@ -744,7 +744,7 @@ export default class SoilTesting extends Component {
                                 )}
                                 {!this.state.Aubergine ? "" : (
                                     <tr>
-                                        <td>Aubergine</td>
+                                        <td>Brinjal</td>
                                         <td>{this.state.Aubergine_Nitrogen}</td>
                                         <td>{this.state.Aubergine_PhosPhorus}</td>
                                         <td>{this.state.Aubergine_Potas}</td>
